@@ -35,7 +35,7 @@ public class UserController {
     @PostMapping("/users")
     public ResponseEntity<User> createUser(@RequestBody User user) {
         try {
-            User _user = userRepository.save(new User(user.getUsername(),user.getPassword(),user.getEmail(),user.getPhone(),user.getFullname(),user.getCash() ));
+            User _user = userRepository.save(new User(user.getUsername(),user.getPassword(),user.getEmail(),user.getPhone(),user.getFullname(),user.getCash(),user.getImage() ));
             return new ResponseEntity<>(_user, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -43,7 +43,7 @@ public class UserController {
     }
 
     @PutMapping("/users/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable("id") long id, @RequestBody User user) {
+    public ResponseEntity<User> updateUser(@PathVariable("id") int id, @RequestBody User user) {
         Optional<User> userData = userRepository.findById(id);
 
         if (userData.isPresent()) {
@@ -61,9 +61,8 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
     @DeleteMapping("/users/{id}")
-    public ResponseEntity<HttpStatus> deleteUser(@PathVariable("id") long id) {
+    public ResponseEntity<HttpStatus> deleteUser(@PathVariable("id") int id) {
         try {
             userRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -73,7 +72,7 @@ public class UserController {
     }
 
     @GetMapping("/users/{id}")
-    public ResponseEntity<User> getPasswordById(@PathVariable("id") long id) {
+    public ResponseEntity<User> getPasswordById(@PathVariable("id") int id) {
         Optional<User> userData = userRepository.findById(id);
 
         if (userData.isPresent()) {

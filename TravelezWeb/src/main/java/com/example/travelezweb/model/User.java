@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private int id;
     @Column(name = "username")
     private String username;
     @Column(name = "password")
@@ -24,13 +24,41 @@ public class User {
     @Column(name = "fullname")
     private String fullname;
     @Column(name = "cash")
-    private int cash;
+    private double cash;
+    @Column(name="image",length = 65535,columnDefinition="Text")
+    private String image;
 
     public User() {
-
     }
 
+    public User(String username, String password, String email, String phone, String fullname, double cash, String image) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.phone = phone;
+        this.fullname = fullname;
+        this.cash = cash;
+        this.image = image;
+    }
 
+    public User(int id, String username, String password, String email, String phone, String fullname, double cash, String image) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.phone = phone;
+        this.fullname = fullname;
+        this.cash = cash;
+        this.image = image;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getUsername() {
         return username;
@@ -72,29 +100,20 @@ public class User {
         this.fullname = fullname;
     }
 
-    public int getCash() {
+    public double getCash() {
         return cash;
     }
 
-    public void setCash(int cash) {
+    public void setCash(double cash) {
         this.cash = cash;
     }
 
-    public User(String username, String password, String email, String phone, String fullname, int cash) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.phone = phone;
-        this.fullname = fullname;
-        this.cash = cash;
+    public String getImage() {
+        return image;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     @Override
@@ -109,4 +128,5 @@ public class User {
                 ", cash=" + cash +
                 '}';
     }
+
 }

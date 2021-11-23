@@ -12,46 +12,63 @@ import javax.validation.constraints.Size;
 public class Tour {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-
+    private int id;
     @Column(name = "name")
-
     private String name;
     @Column(name = "brief")
     private String brief;
     @Column(name = "description")
     private String description;
     @Column(name = "price")
-    private String price;
+    private double price;
     @Column(name = "quality")
-    private int quality;
-    @Column(name = "idtourguy")
-    private int idtourguy;
+    private double quality;
+    @Column(name = "tourguideid")
+    private int tourguideid;
     @Column(name = "maxmember")
     private int maxmember;
     @Column(name = "country")
     private String country;
     @Column(name = "time")
-    private int time;
+    private int time;                       //Hours
+    @Column(name="image",length = 65535,columnDefinition="Text")
+    private String image;
 
     public Tour() {
-
     }
 
-    public Tour( String name, String brief, String description, String price, int quality, int idtourguy, int maxmember, String country, int time) {
-
+    public Tour(String name, String brief, String description, double price, double quality, int tourguideid, int maxmember, String country, int time, String image) {
         this.name = name;
         this.brief = brief;
         this.description = description;
         this.price = price;
         this.quality = quality;
-        this.idtourguy = idtourguy;
+        this.tourguideid = tourguideid;
         this.maxmember = maxmember;
         this.country = country;
         this.time = time;
+        this.image = image;
     }
 
-    public void setId(long id) {
+    public Tour(int id, String name, String brief, String description, double price, double quality, int tourguideid, int maxmember, String country, int time, String image) {
+        this.id = id;
+        this.name = name;
+        this.brief = brief;
+        this.description = description;
+        this.price = price;
+        this.quality = quality;
+        this.tourguideid = tourguideid;
+        this.maxmember = maxmember;
+        this.country = country;
+        this.time = time;
+        this.image = image;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -71,28 +88,36 @@ public class Tour {
         this.brief = brief;
     }
 
-    public String getPrice() {
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    public int getQuality() {
+    public double getQuality() {
         return quality;
     }
 
-    public void setQuality(int quality) {
+    public void setQuality(double quality) {
         this.quality = quality;
     }
 
-    public int getIdtourguy() {
-        return idtourguy;
+    public int getTourguideid() {
+        return tourguideid;
     }
 
-    public void setIdtourguy(int idtourguy) {
-        this.idtourguy = idtourguy;
+    public void setTourguideid(int tourguideid) {
+        this.tourguideid = tourguideid;
     }
 
     public int getMaxmember() {
@@ -119,16 +144,12 @@ public class Tour {
         this.time = time;
     }
 
-    public long getId() {
-        return id;
+    public String getImage() {
+        return image;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     @Override
@@ -140,7 +161,7 @@ public class Tour {
                 ", description='" + description + '\'' +
                 ", price='" + price + '\'' +
                 ", quality=" + quality +
-                ", idtourguy=" + idtourguy +
+                ", idtourguy=" + tourguideid +
                 ", maxmember=" + maxmember +
                 ", country='" + country + '\'' +
                 ", time=" + time +

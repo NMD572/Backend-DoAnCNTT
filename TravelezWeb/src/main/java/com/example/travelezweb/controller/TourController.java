@@ -37,7 +37,7 @@ public class TourController {
         try {
             Tour _tour = tourRepository
                     .save(new Tour( tour.getName(), tour.getBrief(), tour.getDescription(), tour.getPrice(),
-                            tour.getQuality(), tour.getIdtourguy(), tour.getMaxmember(), tour.getCountry(), tour.getTime()));
+                            tour.getQuality(), tour.getTourguideid(), tour.getMaxmember(), tour.getCountry(), tour.getTime(),tour.getImage()));
             return new ResponseEntity<>(_tour, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -45,7 +45,7 @@ public class TourController {
     }
 
     @PutMapping("/tours/{id}")
-    public ResponseEntity<Tour> updateTour(@PathVariable("id") long id, @RequestBody Tour tour) {
+    public ResponseEntity<Tour> updateTour(@PathVariable("id") int id, @RequestBody Tour tour) {
         Optional<Tour> tourData = tourRepository.findById(id);
 
         if (tourData.isPresent()) {
@@ -55,10 +55,11 @@ public class TourController {
             _tour.setDescription(tour.getDescription());
             _tour.setPrice(tour.getPrice());
             _tour.setQuality(tour.getQuality());
-            _tour.setIdtourguy(tour.getIdtourguy());
+            _tour.setTourguideid(tour.getTourguideid());
             _tour.setMaxmember(tour.getMaxmember());
             _tour.setCountry(tour.getCountry());
             _tour.setTime(tour.getTime());
+            _tour.setImage(tour.getImage());
             return new ResponseEntity<>(tourRepository.save(_tour), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -66,7 +67,7 @@ public class TourController {
     }
 
     @DeleteMapping("/tours/{id}")
-    public ResponseEntity<HttpStatus> deleteTour(@PathVariable("id") long id) {
+    public ResponseEntity<HttpStatus> deleteTour(@PathVariable("id") int id) {
         try {
             tourRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -76,7 +77,7 @@ public class TourController {
     }
 
     @GetMapping("/tours/{id}")
-    public ResponseEntity<Tour> getTourById(@PathVariable("id") long id) {
+    public ResponseEntity<Tour> getTourById(@PathVariable("id") int id) {
         Optional<Tour> tourData = tourRepository.findById(id);
 
         if (tourData.isPresent()) {
