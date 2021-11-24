@@ -15,9 +15,9 @@ public class Tour {
     private int id;
     @Column(name = "name")
     private String name;
-    @Column(name = "brief")
+    @Column(name = "brief",length = 1000)
     private String brief;
-    @Column(name = "description")
+    @Column(name = "description",length = 3000)
     private String description;
     @Column(name = "price")
     private double price;
