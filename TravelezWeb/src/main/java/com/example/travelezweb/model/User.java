@@ -1,11 +1,14 @@
 package com.example.travelezweb.model;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sun.istack.NotNull;
 
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -27,7 +30,12 @@ public class User {
     private double cash;
     @Column(name="image",length = 65535,columnDefinition="Text")
     private String image;
-
+    @JsonManagedReference
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Review> listReview = new ArrayList<>();
+    @JsonManagedReference
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Cart> listCart = new ArrayList<>();
     public User() {
     }
 

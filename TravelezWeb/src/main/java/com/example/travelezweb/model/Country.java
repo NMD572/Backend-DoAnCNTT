@@ -1,9 +1,8 @@
 
 package com.example.travelezweb.model;
 
-import com.sun.istack.NotNull;
+
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 @Entity
 @Table(name = "country")
 public class Country {
@@ -19,6 +18,20 @@ public class Country {
     public Country() {
 
     }
+
+    public Country(String name, String image, String link) {
+        this.name = name;
+        this.image = image;
+        this.link = link;
+    }
+
+    public Country(int id, String name, String image, String link) {
+        this.id = id;
+        this.name = name;
+        this.image = image;
+        this.link = link;
+    }
+
     public int getId() {
         return id;
     }
@@ -48,12 +61,6 @@ public class Country {
     }
 
     public void setLink(String link) {
-        this.link = link;
-    }
-
-    public Country(String name, String image, String link) {
-        this.name = name;
-        this.image = image;
         this.link = link;
     }
 }

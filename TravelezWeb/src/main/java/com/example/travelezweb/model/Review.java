@@ -1,34 +1,44 @@
 package com.example.travelezweb.model;
 
-import com.sun.istack.NotNull;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 @Entity
 @Table(name = "review")
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @Column(name = "name")
-    private String name;
-    @Column(name = "description",length = 3000)
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tourid")
+    private Tour tour;
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userid")
+    private User user;
+    @Column(name = "description",length = 1000)
     private String description;
-    @Column(name = "price")
-    private double price;
     @Column(name = "quality")
     private double quality;
-    @Column(name="image",length = 65535,columnDefinition="Text")
-    private String image;
+
     public Review(){
 
     }
 
-    public Review(String name, String description, double price, double quality, String image) {
-        this.name = name;
+    public Review(Tour tour, User user, String description, double quality) {
+        this.tour = tour;
+        this.user = user;
         this.description = description;
-        this.price = price;
         this.quality = quality;
-        this.image = image;
+    }
+
+    public Review(int id, Tour tour, User user, String description, double quality) {
+        this.id = id;
+        this.tour = tour;
+        this.user = user;
+        this.description = description;
+        this.quality = quality;
     }
 
     public int getId() {
@@ -39,12 +49,20 @@ public class Review {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Tour getTour() {
+        return tour;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTour(Tour tour) {
+        this.tour = tour;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getDescription() {
@@ -55,27 +73,11 @@ public class Review {
         this.description = description;
     }
 
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
     public double getQuality() {
         return quality;
     }
 
     public void setQuality(double quality) {
         this.quality = quality;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 }

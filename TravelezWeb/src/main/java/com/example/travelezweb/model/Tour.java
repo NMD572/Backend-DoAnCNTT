@@ -1,11 +1,12 @@
 
 package com.example.travelezweb.model;
 
-import com.sun.istack.NotNull;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "tour")
@@ -23,53 +24,75 @@ public class Tour {
     private double price;
     @Column(name = "quality")
     private double quality;
-    @Column(name = "tourguideid")
-    private int tourguideid;
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tourguideid")
+    private TourGuide tourguide;
     @Column(name = "maxmember")
     private int maxmember;
     @Column(name = "country")
     private String country;
     @Column(name = "time")
-    private int time;                       //Hours
+    private int time;                       //Days
+    @Column(name="action")
+    private String action;
     @Column(name="image",length = 65535,columnDefinition="Text")
     private String image;
+    @JsonManagedReference
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "tour")
+    private List<Review> listReview = new ArrayList<>();
+    @JsonManagedReference
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "tour")
+    private List<Cart> listCart = new ArrayList<>();
 
     public Tour() {
     }
 
-    public Tour(String name, String brief, String description, double price, double quality, int tourguideid, int maxmember, String country, int time, String image) {
+    public Tour(String name, String brief, String description, double price, double quality, TourGuide tourguide, int maxmember, String country, int time, String action, String image) {
         this.name = name;
         this.brief = brief;
         this.description = description;
         this.price = price;
         this.quality = quality;
-        this.tourguideid = tourguideid;
+        this.tourguide = tourguide;
         this.maxmember = maxmember;
         this.country = country;
         this.time = time;
+        this.action = action;
         this.image = image;
     }
 
-    public Tour(int id, String name, String brief, String description, double price, double quality, int tourguideid, int maxmember, String country, int time, String image) {
+    public Tour(String name, String brief, String description, double price, double quality, TourGuide tourguide, int maxmember, String country, int time, String action, String image, List<Review> listReview, List<Cart> listCart) {
+        this.name = name;
+        this.brief = brief;
+        this.description = description;
+        this.price = price;
+        this.quality = quality;
+        this.tourguide = tourguide;
+        this.maxmember = maxmember;
+        this.country = country;
+        this.time = time;
+        this.action = action;
+        this.image = image;
+        this.listReview = listReview;
+        this.listCart = listCart;
+    }
+
+    public Tour(int id, String name, String brief, String description, double price, double quality, TourGuide tourguide, int maxmember, String country, int time, String action, String image, List<Review> listReview, List<Cart> listCart) {
         this.id = id;
         this.name = name;
         this.brief = brief;
         this.description = description;
         this.price = price;
         this.quality = quality;
-        this.tourguideid = tourguideid;
+        this.tourguide = tourguide;
         this.maxmember = maxmember;
         this.country = country;
         this.time = time;
+        this.action = action;
         this.image = image;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+        this.listReview = listReview;
+        this.listCart = listCart;
     }
 
     public String getName() {
@@ -112,12 +135,12 @@ public class Tour {
         this.quality = quality;
     }
 
-    public int getTourguideid() {
-        return tourguideid;
+    public TourGuide getTourguide() {
+        return tourguide;
     }
 
-    public void setTourguideid(int tourguideid) {
-        this.tourguideid = tourguideid;
+    public void setTourguide(TourGuide tourguide) {
+        this.tourguide = tourguide;
     }
 
     public int getMaxmember() {
@@ -152,22 +175,35 @@ public class Tour {
         this.image = image;
     }
 
-    @Override
-    public String toString() {
-        return "tour{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", brief='" + brief + '\'' +
-                ", description='" + description + '\'' +
-                ", price='" + price + '\'' +
-                ", quality=" + quality +
-                ", idtourguy=" + tourguideid +
-                ", maxmember=" + maxmember +
-                ", country='" + country + '\'' +
-                ", time=" + time +
-                '}';
+    public int getId() {
+        return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
+    public String getAction() {
+        return action;
+    }
 
+    public void setAction(String action) {
+        this.action = action;
+    }
+
+    public List<Review> getListReview() {
+        return listReview;
+    }
+
+    public void setListReview(List<Review> listReview) {
+        this.listReview = listReview;
+    }
+
+    public List<Cart> getListCart() {
+        return listCart;
+    }
+
+    public void setListCart(List<Cart> listCart) {
+        this.listCart = listCart;
+    }
 }

@@ -1,5 +1,7 @@
 package com.example.travelezweb.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 @Entity
 @Table(name = "cart")
@@ -7,19 +9,30 @@ public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @Column(name = "userid")
-    private int userId;
-    @Column(name = "tourid")
-    private int tourId;
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userid")
+    private User user;
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tourid")
+    private Tour tour;
     @Column(name="status")
     private String status;
     public Cart(){
 
     }
 
-    public Cart(int userId, int tourId, String status) {
-        this.userId = userId;
-        this.tourId = tourId;
+    public Cart(User user, Tour tour, String status) {
+        this.user = user;
+        this.tour = tour;
+        this.status = status;
+    }
+
+    public Cart(int id, User user, Tour tour, String status) {
+        this.id = id;
+        this.user = user;
+        this.tour = tour;
         this.status = status;
     }
 
@@ -31,20 +44,20 @@ public class Cart {
         this.id = id;
     }
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public int getTourId() {
-        return tourId;
+    public Tour getTour() {
+        return tour;
     }
 
-    public void setTourId(int tourId) {
-        this.tourId = tourId;
+    public void setTour(Tour tour) {
+        this.tour = tour;
     }
 
     public String getStatus() {

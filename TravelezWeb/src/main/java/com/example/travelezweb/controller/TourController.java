@@ -1,11 +1,9 @@
 package com.example.travelezweb.controller;
 
-import java.awt.print.Pageable;
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.travelezweb.constant.HomePageConstant;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -31,7 +29,7 @@ public class TourController {
         try {
             Tour _tour = tourRepository
                     .save(new Tour( tour.getName(), tour.getBrief(), tour.getDescription(), tour.getPrice(),
-                            tour.getQuality(), tour.getTourguideid(), tour.getMaxmember(), tour.getCountry(), tour.getTime(),tour.getImage()));
+                            tour.getQuality(), tour.getTourguide(), tour.getMaxmember(), tour.getCountry(), tour.getTime(),tour.getDescription(),tour.getImage()));
             return new ResponseEntity<>(_tour, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -49,11 +47,12 @@ public class TourController {
             _tour.setDescription(tour.getDescription());
             _tour.setPrice(tour.getPrice());
             _tour.setQuality(tour.getQuality());
-            _tour.setTourguideid(tour.getTourguideid());
+            _tour.setTourguide(tour.getTourguide());
             _tour.setMaxmember(tour.getMaxmember());
             _tour.setCountry(tour.getCountry());
             _tour.setTime(tour.getTime());
             _tour.setImage(tour.getImage());
+            _tour.setAction((tour.getAction()));
             return new ResponseEntity<>(tourRepository.save(_tour), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -85,7 +84,9 @@ public class TourController {
     public ResponseEntity<Page<Tour>> getFourTour() {
         try
         {
-            Page<Tour> tourData = tourRepository.findAllByOrderByQualityDesc(PageRequest.of(0,4));
+            //Lấy các phần tử đầu tiên nên page = 0
+            int page=0;
+            Page<Tour> tourData = tourRepository.findAllByOrderByQualityDesc(PageRequest.of(page, HomePageConstant.limitTour));
 
             if (!tourData.isEmpty()) {
                 return new ResponseEntity<>(tourData,HttpStatus.OK);
