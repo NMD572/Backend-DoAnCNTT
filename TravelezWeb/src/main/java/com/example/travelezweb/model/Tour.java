@@ -186,4 +186,20 @@ public class Tour {
     public void setAction(String action) {
         this.action = action;
     }
+
+    public List<Review> getListreview() {
+        return listreview;
+    }
+
+    public void setListreview(List<Review> listreview) {
+        this.listreview = listreview;
+    }
+
+    public List<Cart> getListcart() {
+        return listcart;
+    }
+
+    public void setListcart(List<Cart> listcart) {
+        this.listcart = listcart;
+    }
 }

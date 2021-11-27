@@ -1,6 +1,7 @@
 package com.example.travelezweb.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -14,11 +15,11 @@ public class Cart {
     private String status;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userid")
-    @JsonBackReference
+    @JsonIgnore
     private User user;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tourid")
-    @JsonBackReference
+    @JsonIgnore
     private Tour tour;
     public Cart(){
 
