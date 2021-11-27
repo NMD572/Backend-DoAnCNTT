@@ -24,12 +24,12 @@ public class TourController {
         this.tourRepository = tourRepository;
     }
 
-    @PostMapping("/tours")
+    @PostMapping(value="/tours")
     public ResponseEntity<Tour> createTour(@RequestBody Tour tour) {
         try {
             Tour _tour = tourRepository
                     .save(new Tour( tour.getName(), tour.getBrief(), tour.getDescription(), tour.getPrice(),
-                            tour.getQuality(), tour.getTourguide(), tour.getMaxmember(), tour.getCountry(), tour.getTime(),tour.getDescription(),tour.getImage()));
+                            tour.getQuality(), tour.getTourguide(), tour.getMaxmember(), tour.getCountry(), tour.getTime(),tour.getAction(),tour.getImage()));
             return new ResponseEntity<>(_tour, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

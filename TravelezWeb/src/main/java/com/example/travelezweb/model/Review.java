@@ -1,6 +1,7 @@
 package com.example.travelezweb.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 @Entity
@@ -9,18 +10,18 @@ public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @JsonBackReference
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tourid")
-    private Tour tour;
-    @JsonBackReference
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userid")
-    private User user;
     @Column(name = "description",length = 1000)
     private String description;
     @Column(name = "quality")
     private double quality;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tourid")
+    @JsonBackReference
+    private Tour tour;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userid")
+    @JsonBackReference
+    private User user;
 
     public Review(){
 

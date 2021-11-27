@@ -1,5 +1,6 @@
 package com.example.travelezweb.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -24,8 +25,8 @@ public class TourGuide {
     private String instagramLink;
     @Column(name="image",length = 65535,columnDefinition="Text")
     private String image;
-    @JsonManagedReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "tourguide")
+    @JsonManagedReference
     private List<Tour> listTour = new ArrayList<>();
     public TourGuide(){
 

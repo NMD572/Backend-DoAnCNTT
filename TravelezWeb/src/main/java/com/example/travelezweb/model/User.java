@@ -1,6 +1,7 @@
 package com.example.travelezweb.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sun.istack.NotNull;
 
@@ -30,11 +31,11 @@ public class User {
     private double cash;
     @Column(name="image",length = 65535,columnDefinition="Text")
     private String image;
-    @JsonManagedReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @JsonManagedReference
     private List<Review> listReview = new ArrayList<>();
-    @JsonManagedReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @JsonManagedReference
     private List<Cart> listCart = new ArrayList<>();
     public User() {
     }

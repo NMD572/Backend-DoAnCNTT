@@ -2,6 +2,7 @@
 package com.example.travelezweb.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -24,10 +25,6 @@ public class Tour {
     private double price;
     @Column(name = "quality")
     private double quality;
-    @JsonBackReference
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tourguideid")
-    private TourGuide tourguide;
     @Column(name = "maxmember")
     private int maxmember;
     @Column(name = "country")
@@ -38,13 +35,16 @@ public class Tour {
     private String action;
     @Column(name="image",length = 65535,columnDefinition="Text")
     private String image;
-    @JsonManagedReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tourguideid")
+    @JsonBackReference
+    private TourGuide tourguide;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "tour")
-    private List<Review> listReview = new ArrayList<>();
-    @JsonManagedReference
+    @JsonIgnore
+    private List<Review> listreview = new ArrayList<>();
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "tour")
-    private List<Cart> listCart = new ArrayList<>();
-
+    @JsonIgnore
+    private List<Cart> listcart = new ArrayList<>();
     public Tour() {
     }
 
@@ -74,8 +74,6 @@ public class Tour {
         this.time = time;
         this.action = action;
         this.image = image;
-        this.listReview = listReview;
-        this.listCart = listCart;
     }
 
     public Tour(int id, String name, String brief, String description, double price, double quality, TourGuide tourguide, int maxmember, String country, int time, String action, String image, List<Review> listReview, List<Cart> listCart) {
@@ -91,8 +89,6 @@ public class Tour {
         this.time = time;
         this.action = action;
         this.image = image;
-        this.listReview = listReview;
-        this.listCart = listCart;
     }
 
     public String getName() {
@@ -189,21 +185,5 @@ public class Tour {
 
     public void setAction(String action) {
         this.action = action;
-    }
-
-    public List<Review> getListReview() {
-        return listReview;
-    }
-
-    public void setListReview(List<Review> listReview) {
-        this.listReview = listReview;
-    }
-
-    public List<Cart> getListCart() {
-        return listCart;
-    }
-
-    public void setListCart(List<Cart> listCart) {
-        this.listCart = listCart;
     }
 }
