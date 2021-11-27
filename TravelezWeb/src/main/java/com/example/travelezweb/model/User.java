@@ -41,6 +41,11 @@ public class User {
     public User() {
     }
 
+    public User(String fullname, String image) {
+        this.fullname = fullname;
+        this.image = image;
+    }
+
     public User(String username, String password, String email, String phone, String fullname, double cash, String image) {
         this.username = username;
         this.password = password;

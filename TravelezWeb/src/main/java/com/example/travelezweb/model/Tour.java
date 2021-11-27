@@ -48,6 +48,10 @@ public class Tour {
     public Tour() {
     }
 
+    public Tour(String name) {
+        this.name = name;
+    }
+
     public Tour(String name, String brief, String description, double price, double quality, TourGuide tourguide, int maxmember, String country, int time, String action, String image) {
         this.name = name;
         this.brief = brief;

@@ -81,7 +81,7 @@ public class TourController {
     }
     //Đăng
     @RequestMapping(value = "/tours/view-homepage", method = RequestMethod.GET)
-    public ResponseEntity<Page<Tour>> getFourTour() {
+    public ResponseEntity<Page<Tour>> getTourForHomePage() {
         try
         {
             //Lấy các phần tử đầu tiên nên page = 0

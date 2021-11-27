@@ -42,6 +42,8 @@ public class Review {
         this.quality = quality;
     }
 
+
+
     public int getId() {
         return id;
     }
