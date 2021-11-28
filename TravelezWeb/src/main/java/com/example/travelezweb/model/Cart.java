@@ -12,7 +12,7 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Column(name="status")
-    private String status;
+    private String status;          //trong gio hang(cart) --> chua check(thanh toan roi) --> da check(da duyet boi admin)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userid")
     @JsonIgnore

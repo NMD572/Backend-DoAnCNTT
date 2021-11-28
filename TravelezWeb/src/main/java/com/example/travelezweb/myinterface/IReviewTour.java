@@ -5,5 +5,5 @@ public interface IReviewTour {
     String getuserfullname();
     String getuserimage();
     String getreviewdescription();
-    String getreiviewquality();
+    Double getreviewquality();
 }
