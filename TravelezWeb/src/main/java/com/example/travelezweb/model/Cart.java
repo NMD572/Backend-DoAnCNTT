@@ -15,11 +15,11 @@ public class Cart {
     private String status;          //trong gio hang(cart) --> chua check(thanh toan roi) --> da check(da duyet boi admin)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userid")
-    @JsonIgnore
+    @JsonBackReference
     private User user;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tourid")
-    @JsonIgnore
+    @JsonBackReference
     private Tour tour;
     public Cart(){
 
@@ -69,4 +69,5 @@ public class Cart {
     public void setStatus(String status) {
         this.status = status;
     }
+
 }
