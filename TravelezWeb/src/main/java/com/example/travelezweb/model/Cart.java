@@ -12,31 +12,27 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Column(name="status")
-    private String status;          //trong gio hang(cart) --> chua check(thanh toan roi) --> da check(da duyet boi admin)
+    private String status;          //trong gio hang(cart) --> chua check(thanh toan roi- wait) --> da check(da duyet boi admin-)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userid")
-    @JsonBackReference
-    private User user;
+    private User userincart;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tourid")
-    @JsonBackReference
-    private Tour tour;
+    private Tour tourincart;
     public Cart(){
 
     }
 
-    public Cart(User user, Tour tour, String status) {
-        this.user = user;
-        this.tour = tour;
+    public Cart(String status) {
         this.status = status;
     }
 
-    public Cart(int id, User user, Tour tour, String status) {
-        this.id = id;
-        this.user = user;
-        this.tour = tour;
+    public Cart(String status, User userincart, Tour tourincart) {
         this.status = status;
+        this.userincart = userincart;
+        this.tourincart = tourincart;
     }
+
 
     public int getId() {
         return id;
@@ -46,20 +42,20 @@ public class Cart {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public User getUserincart() {
+        return userincart;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserincart(User userincart) {
+        this.userincart = userincart;
     }
 
-    public Tour getTour() {
-        return tour;
+    public Tour getTourincart() {
+        return tourincart;
     }
 
-    public void setTour(Tour tour) {
-        this.tour = tour;
+    public void setTourincart(Tour tourincart) {
+        this.tourincart = tourincart;
     }
 
     public String getStatus() {

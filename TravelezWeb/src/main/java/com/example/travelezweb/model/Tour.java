@@ -37,12 +37,11 @@ public class Tour {
     private String image;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tourguideid")
-    @JsonBackReference
     private TourGuide tourguide;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "tour")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "tourinreview")
     @JsonIgnore
     private List<Review> listreview = new ArrayList<>();
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "tour")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "tourincart")
     @JsonIgnore
     private List<Cart> listcart = new ArrayList<>();
     public Tour() {

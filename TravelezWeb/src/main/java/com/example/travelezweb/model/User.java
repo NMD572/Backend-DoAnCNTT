@@ -32,10 +32,10 @@ public class User {
     private double cash;
     @Column(name="image",length = 65535,columnDefinition="Text")
     private String image;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userinreview")
     @JsonIgnore
     private List<Review> listReview = new ArrayList<>();
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userincart")
     @JsonIgnore
     private List<Cart> listCart = new ArrayList<>();
     public User() {

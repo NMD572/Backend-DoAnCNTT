@@ -16,33 +16,29 @@ public class Review {
     private double quality;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tourid")
-    @JsonBackReference
-    private Tour tour;
+    private Tour tourinreview;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userid")
-    @JsonBackReference
-    private User user;
+    private User userinreview;
 
     public Review(){
 
     }
 
-    public Review(Tour tour, User user, String description, double quality) {
-        this.tour = tour;
-        this.user = user;
+    public Review(String description, double quality, Tour tourinreview, User userinreview) {
         this.description = description;
         this.quality = quality;
+        this.tourinreview = tourinreview;
+        this.userinreview = userinreview;
     }
 
-    public Review(int id, Tour tour, User user, String description, double quality) {
+    public Review(int id, String description, double quality, Tour tourinreview, User userinreview) {
         this.id = id;
-        this.tour = tour;
-        this.user = user;
         this.description = description;
         this.quality = quality;
+        this.tourinreview = tourinreview;
+        this.userinreview = userinreview;
     }
-
-
 
     public int getId() {
         return id;
@@ -52,20 +48,20 @@ public class Review {
         this.id = id;
     }
 
-    public Tour getTour() {
-        return tour;
+    public Tour getTourinreview() {
+        return tourinreview;
     }
 
-    public void setTour(Tour tour) {
-        this.tour = tour;
+    public void setTourinreview(Tour tourinreview) {
+        this.tourinreview = tourinreview;
     }
 
-    public User getUser() {
-        return user;
+    public User getUserinreview() {
+        return userinreview;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserinreview(User userinreview) {
+        this.userinreview = userinreview;
     }
 
     public String getDescription() {

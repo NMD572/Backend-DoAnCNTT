@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 public interface TourRepository  extends JpaRepository<Tour, Integer> {
     Page<Tour> findAllByOrderByQualityDesc(Pageable pageable);
     //Sum all time of used tour
-    @Query(value = "Select sum(t.time) From Tour t, Cart c Where c.tour=t and c.status='done'")
+    @Query(value = "Select sum(t.time) From Tour t, Cart c Where c.tourincart=t and c.status='done'")
     long sumtotaltimeofusedtour();
     @Query(value ="Select min(t.price) From Tour t")
     double getminpriceofalltour();
