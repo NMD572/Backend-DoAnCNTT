@@ -3,6 +3,7 @@ package com.example.travelezweb.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -36,14 +37,15 @@ public class Tour {
     @Column(name="image",length = 65535,columnDefinition="Text")
     private String image;
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties(value = {"listTourInTourguide", "handler", "hibernateLazyInitializer"}, allowSetters = true)
     @JoinColumn(name = "tourguideid")
     private TourGuide tourguide;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "tourinreview")
     @JsonIgnore
-    private List<Review> listreview = new ArrayList<>();
+    private List<Review> listreviewintour = new ArrayList<>();
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "tourincart")
     @JsonIgnore
-    private List<Cart> listcart = new ArrayList<>();
+    private List<Cart> listcartintour = new ArrayList<>();
     public Tour() {
     }
 
@@ -188,21 +190,5 @@ public class Tour {
 
     public void setAction(String action) {
         this.action = action;
-    }
-
-    public List<Review> getListreview() {
-        return listreview;
-    }
-
-    public void setListreview(List<Review> listreview) {
-        this.listreview = listreview;
-    }
-
-    public List<Cart> getListcart() {
-        return listcart;
-    }
-
-    public void setListcart(List<Cart> listcart) {
-        this.listcart = listcart;
     }
 }

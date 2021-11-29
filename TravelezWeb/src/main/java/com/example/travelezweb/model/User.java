@@ -34,10 +34,10 @@ public class User {
     private String image;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "userinreview")
     @JsonIgnore
-    private List<Review> listReview = new ArrayList<>();
+    private List<Review> listReviewInUser = new ArrayList<>();
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "userincart")
     @JsonIgnore
-    private List<Cart> listCart = new ArrayList<>();
+    private List<Cart> listCartInUser = new ArrayList<>();
     public User() {
     }
 

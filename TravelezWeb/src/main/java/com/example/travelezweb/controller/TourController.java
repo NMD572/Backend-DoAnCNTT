@@ -89,7 +89,7 @@ public class TourController {
             Page<Tour> tourData = tourRepository.findAllByOrderByQualityDesc(PageRequest.of(page, HomePageConstant.limitTour));
 
             if (!tourData.isEmpty()) {
-                return new ResponseEntity<>(tourData,HttpStatus.OK);
+                return new ResponseEntity<Page<Tour>>(tourData,HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }

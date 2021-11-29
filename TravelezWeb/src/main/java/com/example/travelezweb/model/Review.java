@@ -1,6 +1,7 @@
 package com.example.travelezweb.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -15,9 +16,11 @@ public class Review {
     @Column(name = "quality")
     private double quality;
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties(value = {"listreviewintour", "handler", "hibernateLazyInitializer"}, allowSetters = true)
     @JoinColumn(name = "tourid")
     private Tour tourinreview;
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties(value = {"listReviewInUser", "handler", "hibernateLazyInitializer"}, allowSetters = true)
     @JoinColumn(name = "userid")
     private User userinreview;
 

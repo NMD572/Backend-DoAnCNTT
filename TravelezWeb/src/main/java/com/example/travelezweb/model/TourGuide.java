@@ -28,7 +28,7 @@ public class TourGuide {
     private String image;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "tourguide")
     @JsonIgnore
-    private List<Tour> listTour = new ArrayList<>();
+    private List<Tour> listTourInTourguide = new ArrayList<>();
     public TourGuide(){
 
     }
@@ -42,17 +42,7 @@ public class TourGuide {
         this.image = image;
     }
 
-    public TourGuide(String name, double quality, String brief, String fbLink, String instagramLink, String image, List<Tour> listTour) {
-        this.name = name;
-        this.quality = quality;
-        this.brief = brief;
-        this.fbLink = fbLink;
-        this.instagramLink = instagramLink;
-        this.image = image;
-        this.listTour = listTour;
-    }
-
-    public TourGuide(int id, String name, double quality, String brief, String fbLink, String instagramLink, String image, List<Tour> listTour) {
+    public TourGuide(int id, String name, double quality, String brief, String fbLink, String instagramLink, String image) {
         this.id = id;
         this.name = name;
         this.quality = quality;
@@ -60,7 +50,6 @@ public class TourGuide {
         this.fbLink = fbLink;
         this.instagramLink = instagramLink;
         this.image = image;
-        this.listTour = listTour;
     }
 
     public int getId() {
@@ -117,13 +106,5 @@ public class TourGuide {
 
     public void setImage(String image) {
         this.image = image;
-    }
-
-    public List<Tour> getListTour() {
-        return listTour;
-    }
-
-    public void setListTour(List<Tour> listTour) {
-        this.listTour = listTour;
     }
 }
