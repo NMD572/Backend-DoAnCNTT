@@ -13,7 +13,7 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Column(name="status")
-    private String status;          //trong gio hang(cart) --> chua check(thanh toan roi- wait) --> da check(da duyet boi admin-)
+    private String status;          //trong gio hang(cart) --> chua check(thanh toan roi- wait) --> da check(da duyet boi admin--> tien hanh du lich - process) --> done
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties(value = {"listCartInUser", "handler", "hibernateLazyInitializer"}, allowSetters = true)
     @JoinColumn(name = "userid")
