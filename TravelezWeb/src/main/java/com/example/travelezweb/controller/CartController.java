@@ -48,8 +48,8 @@ public class CartController {
         mapResult.put("status", true);
         try {
             int checktouravailable=0;
-            //int checktouravailable=cartRepository.countByTourincartAndStatusOrStatus(cart.getTourincart(),CartConstant.process,CartConstant.waittocheck);
-            System.out.print( "n:"+checktouravailable+"\n");
+            checktouravailable=cartRepository.countByTourincartAndStatusOrStatus(cart.getTourincart(),CartConstant.process,CartConstant.waittocheck);
+            //System.out.print( "n:"+checktouravailable+"\n");
             if(checktouravailable==0)
             {
                 int countcartexist = cartRepository.countByStatusAndUserincartAndTourincart(CartConstant.incart, cart.getUserincart(), cart.getTourincart());
