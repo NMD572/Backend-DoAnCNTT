@@ -35,7 +35,7 @@ public class UserController {
     @PostMapping("/users")
     public ResponseEntity<User> createUser(@RequestBody User user) {
         try {
-            User _user = userRepository.save(new User(user.getUsername(),user.getPassword(),user.getEmail(),user.getPhone(),user.getFullname(),user.getCash(),user.getImage() ));
+            User _user = userRepository.save(new User(user.getUsername(),user.getPassword(),user.getEmail(),user.getPhone(),user.getFullname(),user.getCash(),user.getImage(),user.getRole() ));
             return new ResponseEntity<>(_user, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -49,13 +49,23 @@ public class UserController {
         if (userData.isPresent()) {
             User _user = userData.get();
             _user.setUsername(user.getUsername());
-            _user.setPassword(user.getPassword());
-            _user.setEmail(user.getEmail());
             _user.setPhone(user.getPhone());
             _user.setFullname(user.getFullname());
-            _user.setCash(user.getCash());
+            return new ResponseEntity<>(userRepository.save(_user), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    @PutMapping("/users/cash/{id}")
+    public ResponseEntity<User> updateCashUser(@PathVariable("id") int id, @RequestBody User user) {
+        Optional<User> userData = userRepository.findById(id);
 
-
+        if (userData.isPresent()) {
+            User _user = userData.get();
+            double cash = _user.getCash();
+            cash = cash - user.getCash();
+            _user.setCash(cash);
+            System.out.print( "n:"+cash+"\n");
             return new ResponseEntity<>(userRepository.save(_user), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -72,13 +82,29 @@ public class UserController {
     }
 
     @GetMapping("/users/{id}")
-    public ResponseEntity<User> getPasswordById(@PathVariable("id") int id) {
-        Optional<User> userData = userRepository.findById(id);
+    public ResponseEntity<User> findPasswordById(@PathVariable("id") int id) {
+        try{
+        User users = userRepository.findPasswordById(id);
+        if (users.getEmail()=="") {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(users, HttpStatus.OK);
+         } catch (Exception e) {
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+             }
 
-        if (userData.isPresent()) {
-            return new ResponseEntity<>(userData.get(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+    @GetMapping("/users/get/{email}")
+    public ResponseEntity< User> findPasswordByEmail( @PathVariable String email) {
+        try {
+            User users = userRepository.findPasswordByEmail(email);
+
+            if (users.getPassword()=="") {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(users, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

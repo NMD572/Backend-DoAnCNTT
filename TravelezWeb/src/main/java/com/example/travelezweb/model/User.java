@@ -32,6 +32,8 @@ public class User {
     private double cash;
     @Column(name="image",length = 65535,columnDefinition="Text")
     private String image;
+    @Column(name = "role")
+    private int role;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "userinreview")
     @JsonIgnore
     private List<Review> listReviewInUser = new ArrayList<>();
@@ -46,7 +48,7 @@ public class User {
         this.image = image;
     }
 
-    public User(String username, String password, String email, String phone, String fullname, double cash, String image) {
+    public User(String username, String password, String email, String phone, String fullname, double cash, String image, int role) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -54,17 +56,7 @@ public class User {
         this.fullname = fullname;
         this.cash = cash;
         this.image = image;
-    }
-
-    public User(int id, String username, String password, String email, String phone, String fullname, double cash, String image) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.phone = phone;
-        this.fullname = fullname;
-        this.cash = cash;
-        this.image = image;
+        this.role = role;
     }
 
     public int getId() {
@@ -125,6 +117,14 @@ public class User {
 
     public String getImage() {
         return image;
+    }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
     }
 
     public void setImage(String image) {

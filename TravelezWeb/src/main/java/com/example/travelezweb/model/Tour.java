@@ -96,6 +96,7 @@ public class Tour {
         this.image = image;
     }
 
+
     public String getName() {
         return name;
     }
