@@ -28,9 +28,9 @@ public class CartController {
 
     @Autowired
     CartRepository cartRepository;
-    @Autowired
-    UserRepository userRepository;
-    @PostMapping(value="/cart")
+
+    //@RequestMapping(value = "/infomyshop/view-homepage", method = RequestMethod.GET)
+    @RequestMapping(value="/cart", method = RequestMethod.POST)
     public ResponseEntity<Map<String, Object>> createCart(@RequestBody Cart cart) {
         Map<String, Object> mapResult=new HashMap<>();
         mapResult.put("status", false);
@@ -46,7 +46,8 @@ public class CartController {
             return new ResponseEntity<Map<String, Object>>(mapResult, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @PostMapping(value="/cart/check-exit")
+    //@PostMapping(value="/cart/check-exit")
+    @RequestMapping(value="/cart/check-exit", method = RequestMethod.POST)
     public ResponseEntity<Map<String, Object>> checkCartExist(@RequestBody Cart cart) {
         Map<String, Object> mapResult=new HashMap<>();
         mapResult.put("status", true);
