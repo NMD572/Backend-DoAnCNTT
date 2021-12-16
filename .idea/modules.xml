@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Backend-DoAnCNTT.iml" filepath="$PROJECT_DIR$/.idea/Backend-DoAnCNTT.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TravelezWeb/TravelezWeb.iml" filepath="$PROJECT_DIR$/TravelezWeb/TravelezWeb.iml" />
+    </modules>
+  </component>
+</project>
