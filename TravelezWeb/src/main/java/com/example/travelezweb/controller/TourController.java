@@ -21,16 +21,17 @@ import com.example.travelezweb.repository.TourRepository;
 public class TourController {
     final
     TourRepository tourRepository;
+
     public TourController(TourRepository tourRepository) {
         this.tourRepository = tourRepository;
     }
 
-    @PostMapping(value="/tours")
+    @PostMapping(value = "/tours")
     public ResponseEntity<Tour> createTour(@RequestBody Tour tour) {
         try {
             Tour _tour = tourRepository
-                    .save(new Tour( tour.getName(), tour.getBrief(), tour.getDescription(), tour.getPrice(),
-                            tour.getQuality(), tour.getTourguide(), tour.getMaxmember(), tour.getCountry(), tour.getTime(),tour.getAction(),tour.getImage()));
+                    .save(new Tour(tour.getName(), tour.getBrief(), tour.getDescription(), tour.getPrice(),
+                            tour.getQuality(), tour.getTourguide(), tour.getMaxmember(), tour.getCountry(), tour.getTime(), tour.getAction(), tour.getImage()));
             return new ResponseEntity<>(_tour, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -80,17 +81,17 @@ public class TourController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
     //Đăng
     @RequestMapping(value = "/tours/view-homepage", method = RequestMethod.GET)
     public ResponseEntity<Page<Tour>> getTourForHomePage() {
-        try
-        {
+        try {
             //Lấy các phần tử đầu tiên nên page = 0
-            int page=0;
+            int page = 0;
             Page<Tour> tourData = tourRepository.findAllByOrderByQualityDesc(PageRequest.of(page, HomePageConstant.limitTour));
 
             if (!tourData.isEmpty()) {
-                return new ResponseEntity<Page<Tour>>(tourData,HttpStatus.OK);
+                return new ResponseEntity<Page<Tour>>(tourData, HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
@@ -98,16 +99,16 @@ public class TourController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     @RequestMapping(value = "/tours/search", method = RequestMethod.POST)
     public ResponseEntity<Page<Tour>> getTourByTourguideName(@RequestBody TourGuide tourGuide) {
-        try
-        {
+        try {
             //Lấy các phần tử đầu tiên nên page = 0
-            int page=0;
+            int page = 0;
             Page<Tour> tourData = tourRepository.findAllByOrderByQualityDesc(PageRequest.of(page, HomePageConstant.limitTour));
 
             if (!tourData.isEmpty()) {
-                return new ResponseEntity<Page<Tour>>(tourData,HttpStatus.OK);
+                return new ResponseEntity<Page<Tour>>(tourData, HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
@@ -115,49 +116,22 @@ public class TourController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     @RequestMapping(value = "/tours/search", method = RequestMethod.PUT)
     public ResponseEntity<Page<Tour>> getTourByName(@RequestBody Tour tour) {
-        try
-        {
+        try {
             //Lấy các phần tử đầu tiên nên page = 0
-            int page=0;
+            int page = 0;
             Page<Tour> tourData = tourRepository.findAllByOrderByQualityDesc(PageRequest.of(page, HomePageConstant.limitTour));
 
             if (!tourData.isEmpty()) {
-                return new ResponseEntity<Page<Tour>>(tourData,HttpStatus.OK);
+                return new ResponseEntity<Page<Tour>>(tourData, HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }
-}
 
-            if (!tourData.isEmpty()) {
-                return new ResponseEntity<Page<Tour>>(tourData,HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }
-    @RequestMapping(value = "/tours/search", method = RequestMethod.PUT)
-    public ResponseEntity<Page<Tour>> getTourByName(@RequestBody Tour tour) {
-        try
-        {
-            //Lấy các phần tử đầu tiên nên page = 0
-            int page=0;
-            Page<Tour> tourData = tourRepository.findAllByOrderByQualityDesc(PageRequest.of(page, HomePageConstant.limitTour));
-
-            if (!tourData.isEmpty()) {
-                return new ResponseEntity<Page<Tour>>(tourData,HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
 }
