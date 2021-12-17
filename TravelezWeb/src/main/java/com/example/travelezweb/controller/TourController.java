@@ -100,38 +100,5 @@ public class TourController {
         }
     }
 
-    @RequestMapping(value = "/tours/search", method = RequestMethod.POST)
-    public ResponseEntity<Page<Tour>> getTourByTourguideName(@RequestBody TourGuide tourGuide) {
-        try {
-            //Lấy các phần tử đầu tiên nên page = 0
-            int page = 0;
-            Page<Tour> tourData = tourRepository.findAllByOrderByQualityDesc(PageRequest.of(page, HomePageConstant.limitTour));
 
-            if (!tourData.isEmpty()) {
-                return new ResponseEntity<Page<Tour>>(tourData, HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @RequestMapping(value = "/tours/search", method = RequestMethod.PUT)
-    public ResponseEntity<Page<Tour>> getTourByName(@RequestBody Tour tour) {
-        try {
-            //Lấy các phần tử đầu tiên nên page = 0
-            int page = 0;
-            Page<Tour> tourData = tourRepository.findAllByOrderByQualityDesc(PageRequest.of(page, HomePageConstant.limitTour));
-
-            if (!tourData.isEmpty()) {
-                return new ResponseEntity<Page<Tour>>(tourData, HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        }
 }

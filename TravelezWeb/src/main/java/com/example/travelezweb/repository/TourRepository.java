@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface TourRepository  extends JpaRepository<Tour, Integer> {
+    @Query("SELECT t FROM Tour t, TourGuide tg WHERE t.tourguide=tg and CONCAT(t.name,tg.name) LIKE CONCAT('%',UPPER(:searchString),'%')")
+    Page<Tour> findAll(@Param("searchString") String searchString,Pageable pageable);
     Page<Tour> findAllByOrderByQualityDesc(Pageable pageable);
     Page<Tour> findAllByName(String name, Pageable pageable);
     @Query(value = "Select t From Tour t, TourGuide tg Where t.tourguide=tg and tg.name=:tourguideName")
