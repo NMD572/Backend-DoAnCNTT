@@ -48,20 +48,24 @@ public class CartController {
         mapResult.put("status", true);
         try {
             int checktouravailable=0;
-            checktouravailable=cartRepository.countByTourincartAndStatusOrStatus(cart.getTourincart(),CartConstant.process,CartConstant.waittocheck);
+            checktouravailable=cartRepository.countByTourincartAndStatus(cart.getTourincart(),CartConstant.process);
             //System.out.print( "n:"+checktouravailable+"\n");
             if(checktouravailable==0)
             {
-                int countcartexist = cartRepository.countByStatusAndUserincartAndTourincart(CartConstant.incart, cart.getUserincart(), cart.getTourincart());
-                System.out.print( "n:"+countcartexist+"\n");
-                if (countcartexist == 0)
-                {
-                    mapResult.remove("status");
-                    mapResult.put("status", false);
+                checktouravailable=cartRepository.countByTourincartAndStatus(cart.getTourincart(),CartConstant.waittocheck);
+                if(checktouravailable==0) {
+                    int countcartexist = cartRepository.countByStatusAndUserincartAndTourincart(CartConstant.incart, cart.getUserincart(), cart.getTourincart());
+                    //System.out.print("n:" + countcartexist + "\n");
+                    if (countcartexist == 0) {
+                        mapResult.remove("status");
+                        mapResult.put("status", false);
+                    } else {
+                        mapResult.put("alert", "This tour have already in your cart!");
+                    }
                 }
                 else
                 {
-                    mapResult.put("alert","This tour have already in your cart!");
+                    mapResult.put("alert","This tour is in use!");
                 }
             }
             else
