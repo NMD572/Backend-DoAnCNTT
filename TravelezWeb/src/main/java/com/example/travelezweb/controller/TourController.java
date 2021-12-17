@@ -100,6 +100,7 @@ public class TourController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     @RequestMapping(value = "/tours/view-all", method = RequestMethod.GET)
     public ResponseEntity<List<Tour>> getAllTour() {
         try {
@@ -116,5 +117,6 @@ public class TourController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 
 }
