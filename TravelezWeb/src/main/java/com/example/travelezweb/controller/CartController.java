@@ -87,10 +87,10 @@ public class CartController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @GetMapping(value="/cart/view-cart/")
-    public ResponseEntity<List<Cart>> findCartByStatus(String status) {
+    @GetMapping(value="/cart/view-cart/{status}")
+    public ResponseEntity<List<Cart>> findCartByStatus(@PathVariable String status) {
         try {
-            List<Cart> carts = cartRepository.findCartByStatus("cart");
+            List<Cart> carts = cartRepository.findCartByStatus(status);
 
             if (carts.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -115,5 +115,13 @@ public class CartController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
+    @DeleteMapping("/cart/{id}")
+    public ResponseEntity<HttpStatus> deleteCart(@PathVariable("id") int id) {
+        try {
+            cartRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
