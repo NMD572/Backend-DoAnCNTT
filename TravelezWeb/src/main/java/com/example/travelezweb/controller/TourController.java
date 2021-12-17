@@ -2,6 +2,7 @@ package com.example.travelezweb.controller;
 
 
 import java.util.Optional;
+import java.util.List;
 
 import com.example.travelezweb.constant.HomePageConstant;
 import com.example.travelezweb.model.TourGuide;
@@ -92,6 +93,23 @@ public class TourController {
 
             if (!tourData.isEmpty()) {
                 return new ResponseEntity<Page<Tour>>(tourData, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @RequestMapping(value = "/tours/view-all", method = RequestMethod.GET)
+    public ResponseEntity<List<Tour>> getAllTour() {
+        try {
+            //Lấy các phần tử đầu tiên nên page = 0
+
+            List<Tour> tourData = tourRepository.findAll();
+
+            if (!tourData.isEmpty()) {
+                return new ResponseEntity<List<Tour>>(tourData, HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
