@@ -15,7 +15,7 @@ public interface TourRepository  extends JpaRepository<Tour, Integer> {
     @Query(value = "Select t From Tour t, TourGuide tg Where t.tourguide=tg and tg.name=:tourguideName")
     Page<Tour> findAllByTourguideName(@Param("tourguideName") String tourguideName,Pageable pageable);
     //Sum all time of used tour
-    @Query(value = "Select sum(t.time) From Tour t, Cart c Where c.tourincart=t and c.status='done'")
+    @Query(value = "Select sum(t.time) From Tour t, Cart c Where c.tourincart=t and c.status='complete'")
     long sumtotaltimeofusedtour();
     @Query(value ="Select min(t.price) From Tour t")
     double getminpriceofalltour();
